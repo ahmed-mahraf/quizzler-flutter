@@ -45,4 +45,22 @@ class QuizBrain {
   {
     return _questionBank[_questionNumber].questionAnswer;
   }
+
+  bool isFinished(){
+    if (_questionNumber == (_questionBank.length - 1))
+      {
+        print('isFinished true');
+        return true;
+      }
+
+    else
+      {
+        print('isFinished false');
+        return false;
+      }
+  }
+
+  void reset(){
+    _questionNumber = 0;
+  }
 }
