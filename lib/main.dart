@@ -21,7 +21,7 @@ class Quizzler extends StatelessWidget {
   }
 }
 
-class QuizPage extends StatefulWidget {
+class QuizPage extends StatefulWidget { // Extends is inheriting from the statefulWidget class
   @override
   _QuizPageState createState() => _QuizPageState();
 }
