@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'quiz_brain.dart';
 
 QuizBrain quizBrain = new QuizBrain();
@@ -21,13 +22,32 @@ class Quizzler extends StatelessWidget {
   }
 }
 
-class QuizPage extends StatefulWidget { // Extends is inheriting from the statefulWidget class
-  @override
+class QuizPage extends StatefulWidget {
+  // Extends is inheriting from the statefulWidget class
+  @override // override the parent behaviour, make our own custom version.
   _QuizPageState createState() => _QuizPageState();
 }
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
+
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getQuestionAnswer();
+
+    setState(() {
+      if (userPickedAnswer == correctAnswer)
+        scoreKeeper.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      else
+        scoreKeeper.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+        quizBrain.nextQuestion();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,16 +86,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-
-                bool correctAnswer = quizBrain.getQuestionAnswer();
-
-                if (correctAnswer==true)
-                  print('RIGHT');
-                else
-                  print('WRONG');
-                setState(() {
-                  quizBrain.nextQuestion();
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -95,15 +106,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                  bool correctAnswer = quizBrain.getQuestionAnswer();
-
-                  if (correctAnswer==false)
-                    print('RIGHT');
-                  else
-                    print('WRONG');
-                  quizBrain.nextQuestion();
-                });
+                checkAnswer(false);
               },
             ),
           ),
